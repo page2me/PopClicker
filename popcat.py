@@ -12,11 +12,13 @@ delay_time = 30
 scale = 100
 clicks = 0
 while True:
+ if clicks >= pop_count:
+  break
  url = f"https://stats.popcat.click/pop?pop_count={pop_count}&captcha_token={captcha_token}&token={token}"
  res = scraper.get(url)
  if res.status_code == HTTP201Created:
   res_json = loads(res.text)
   token = res_json["Token"]
   clicks += pop_count
- for i in tqdm(range(scale), desc="POPCAT clicks: "+str(clicks)):
+ for i in tqdm(range(scale), desc=f"POPCAT {clicks} clicks "):
   sleep(delay_time/scale)
